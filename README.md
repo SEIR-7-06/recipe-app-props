@@ -1,6 +1,10 @@
-# Recipe App: Adding Props
+## Recipe App: Adding Props
 
-In our `App` component in `./src/App.js`, let's remove our `Person` components and bring back the `Header`, and `MainPage` components. We'll leave the `HomePage` component commented out for now so we are just viewing the main page. You can also comment out the `Person` components if you want to save them for later.
+For this lesson, we will take our Recipe App that we set up earlier and add **props** to our components. At the moment all of our category information and recipe information is hard-coded directly into our JSX. We will learn how we can store our category and recipe data at the top level and pass that data as **props** to the child components.
+
+![Completed app](./images/completed-app.png)
+
+Let's return to our `App` component and we'll leave the `HomePage` component commented out for now so we are just viewing the main page.
 
 ```js
 import Header from './components/Header';
