@@ -41,54 +41,45 @@ touch ./src/categoryData.js
   ```js
 const categoryData = [
   {
-    _id: '0',
     categoryName: 'Breakfast',
     categoryDescription: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis, eligendi. Repellendus voluptates vel, consequatur sequi dolorem repellat blanditiis aut optio impedit quidem ut officiis laudantium vitae dicta aspernatur ullam quis?',
     categoryImg: 'https://images.unsplash.com/photo-1533089860892-a7c6f0a88666',
     recipes: [
       {
-        _id: '0',
         recipeName: 'Breakfast Potatoes',
         recipeDescription: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus facere ab cumque autem ea deserunt est sit quasi in nihil quibusdam, quos, animi laborum voluptate doloribus ullam blanditiis ipsam ut!`'
       },
       {
-        _id: '1',
         recipeName: 'French Toast',
         recipeDescription: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus facere ab cumque autem ea deserunt est sit quasi in nihil quibusdam, quos, animi laborum voluptate doloribus ullam blanditiis ipsam ut!`'
       },
       {
-        _id: '2',
         recipeName: 'Huevos Rancheros',
         recipeDescription: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus facere ab cumque autem ea deserunt est sit quasi in nihil quibusdam, quos, animi laborum voluptate doloribus ullam blanditiis ipsam ut!`'
       },
     ]
   },
   {
-    _id: '1',
     categoryName: 'Soups',
     categoryDescription: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis, eligendi. Repellendus voluptates vel, consequatur sequi dolorem repellat blanditiis aut optio impedit quidem ut officiis laudantium vitae dicta aspernatur ullam quis?',
     categoryImg: 'https://images.unsplash.com/photo-1588566565463-180a5b2090d2',
     recipes: [
       {
-        _id: '0',
         recipeName: 'Tomato Bisque',
         recipeDescription: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus facere ab cumque autem ea deserunt est sit quasi in nihil quibusdam, quos, animi laborum voluptate doloribus ullam blanditiis ipsam ut!`'
       },
       {
-        _id: '1',
         recipeName: 'Split Pea Soup',
         recipeDescription: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus facere ab cumque autem ea deserunt est sit quasi in nihil quibusdam, quos, animi laborum voluptate doloribus ullam blanditiis ipsam ut!`'
       },
     ]
   },
   {
-    _id: '2',
     categoryName: 'Pasta Dishes',
     categoryDescription: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quis, eligendi. Repellendus voluptates vel, consequatur sequi dolorem repellat blanditiis aut optio impedit quidem ut officiis laudantium vitae dicta aspernatur ullam quis?',
     categoryImg: 'https://images.unsplash.com/photo-1603729362753-f8162ac6c3df',
     recipes: [
       {
-        _id: '0',
         recipeName: 'Stroganoff',
         recipeDescription: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus facere ab cumque autem ea deserunt est sit quasi in nihil quibusdam, quos, animi laborum voluptate doloribus ullam blanditiis ipsam ut!`'
       }
@@ -204,13 +195,13 @@ Note this is a warning and not an error, even though it's in red. Our app is run
 
 The warning is telling us that whenever we dynamically create a list of **JSX** items, each item should have a unique **key prop**. This allows React to keep track of each list item, and allows React to render efficiently when one of those list items change. To read more about it check out the [link provided in the warning](https://reactjs.org/docs/lists-and-keys.html#keys).
 
-If we look at `categoryData.js` each one of our category objects has a unique id. We'll use this as the unique key prop for each `<li>`.
+Let's modify our `map()` method to provide a unique index value that can be used as the key prop!
 
 ```js
 ...
-const categoriesList = props.categories.map((category) => {
+const categoriesList = props.categories.map((category, index) => {
   return (
-    <li className="sidebar-card" key={category._id}>
+    <li className="sidebar-card" key={index}>
       {category.categoryName}
     </li>
   );
@@ -293,8 +284,8 @@ Use `Sidebar.js` as a reference and give it a try!
   import Recipe from './Recipe';
 
   function RecipesList(props) {
-    const recipesComps = props.recipes.map((recipeData) => {
-      return <Recipe key={recipeData._id} />;
+    const recipesComps = props.recipes.map((recipeData, index) => {
+      return <Recipe key={index} />;
     })
 
     return (
@@ -326,25 +317,25 @@ We'll start by wrapping a set of parenthases around our return value. This will 
 
 ```js
 ...
-const recipes = props.recipes.map((recipeData) => {
+const recipes = props.recipes.map((recipeData, index) => {
   return (
-    <Recipe key={recipeData._id} />
+    <Recipe key={index} />
   );
 });
 ...
 ```
 Notice we have to move the semi-colon to after the closing parenthasis.
 
-Here `recipeData` in our callback function is the item in the array we are looping over. It happens to be the recipe object. Peeking at `categoryData.js` we can see that each recipe in the `recipes` array is an object with an `_id`, a `recipeName`, and a `recipeDescription`.
+Here `recipeData` in our callback function is the item in the array we are looping over. It happens to be the recipe object. Peeking at `categoryData.js` we can see that each recipe in the `recipes` array is an object with a `recipeName`, and a `recipeDescription`.
 
 Back to the `RecipesList` component in our **map method**, we can pass the entire `recipeData` object as a prop to the `Recipe` component like so.
 
 ```js
 ...
-const recipesComps = props.recipes.map((recipeData) => {
+const recipesComps = props.recipes.map((recipeData, index) => {
   return (
     <Recipe 
-      key={recipeData._id} 
+      key={index} 
       recipe={recipeData}
     />
   );
