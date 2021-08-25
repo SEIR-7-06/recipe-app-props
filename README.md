@@ -36,7 +36,7 @@ Create a new file called `categoryData.js` in the `src` directory.
 touch ./src/categoryData.js
 ```
 <details>
-  <summary>Copy and paste this code into the `catagoryData.js` file.</summary>
+  <summary>Copy and paste this code into the `categoryData.js` file.</summary>
 
   ```js
 const categoryData = [
